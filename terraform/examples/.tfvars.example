@@ -1,0 +1,4 @@
+# Copy file ini ke .tfvars dan isi nilai
+# cp .tfvars.example .tfvars
+
+do_token = "dop_v1_xxx"
