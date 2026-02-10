@@ -145,6 +145,100 @@ do_token = "dop_v1_xxx"
 3. data.tf        →  Cari SSH key yang sudah ada
 4. main.tf        →  Bikin droplet sesuai spesifikasi
 5. output.tf      →  Cetak IP address ke terminal
+6. .tfvars        →  Nilai variable (opsional, jangan di-commit)
+7. firewall.tf    →  Aturan firewall menempel ke droplet
 ```
 
 **Urutan eksekusi:** Terraform membaca semua file `.tf`, lalu meresolve dependency secara otomatis (variable → provider → data → resource → output).
+
+---
+
+## 7. firewall.tf — Aturan Lalu Lintas ke Droplet
+
+Mengatur firewall DigitalOcean yang menempel ke droplet: siapa yang boleh akses (inbound) dan droplet boleh keluar ke mana (outbound). Referensi: `terraform/examples/firewall.tf`.
+
+```hcl
+resource "digitalocean_firewall" "web_fw" {
+  name = "web-firewall"
+
+  droplet_ids = [
+    digitalocean_droplet.web.id
+  ]
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "22"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "80"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "443"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
+```
+
+| Bagian | Arti |
+|--------|------|
+| **droplet_ids** | Firewall dipasang ke droplet ini (referensi ke `digitalocean_droplet.web`) |
+| **inbound_rule** | Siapa boleh masuk: TCP, port spesifik (22, 80, 443) → attack surface kecil; HTTP/HTTPS pakai TCP |
+| **source_addresses** | `0.0.0.0/0` dan `::/0` = semua IP boleh (wajar untuk HTTP/HTTPS, **tidak** wajar untuk SSH) |
+| **outbound_rule** | Droplet boleh keluar ke mana; range lebar (1-65535) agar bisa update paket, DNS, dll |
+
+**Analogi:** Seperti daftar “siapa boleh masuk lewat pintu mana” (inbound) dan “server boleh keluar ke mana” (outbound).
+
+### Perbaikan yang disarankan
+
+**Batasi SSH hanya dari IP sendiri** — jangan biarkan port 22 dari seluruh internet.
+
+Opsi 1 — IP statis (ganti dengan IP kamu):
+
+```hcl
+inbound_rule {
+  protocol         = "tcp"
+  port_range       = "22"
+  source_addresses = ["103.xxx.xxx.xxx/32"]
+}
+```
+
+Opsi 2 — IP publik otomatis (dari mesin yang jalankan Terraform):
+
+```hcl
+data "http" "my_public_ip" {
+  url = "https://ifconfig.me"
+}
+
+inbound_rule {
+  protocol         = "tcp"
+  port_range       = "22"
+  source_addresses = ["${chomp(data.http.my_public_ip.response_body)}/32"]
+}
+```
+
+### Catatan penting
+
+- Kalau nanti pakai DB: **jangan** buka port DB ke publik; buka untuk jaringan internal saja.
+- **Kesalahan umum:**
+  - ❌ Buka port 1–65535 inbound
+  - ❌ Lupa pakai firewall sama sekali
+  - ❌ SSH dari semua IP selamanya
+  - ❌ Atur firewall manual di dashboard (tidak terdokumentasi di kode)
