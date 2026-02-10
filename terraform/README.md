@@ -19,7 +19,7 @@ Dokumentasi — penjelasan konsep dan perintah.
 
 ### `examples/`
 
-Contoh konfigurasi — DigitalOcean droplet.
+Contoh konfigurasi — DigitalOcean droplet dan firewall.
 
 | File | Isi |
 |------|-----|
@@ -27,5 +27,6 @@ Contoh konfigurasi — DigitalOcean droplet.
 | `variable.tf` | Input (token, dll) |
 | `data.tf` | Query data eksisting (SSH key) |
 | `main.tf` | Resource yang dibuat (droplet) |
+| `firewall.tf` | Resource firewall untuk membatasi akses jaringan |
 | `outputs.tf` | Output (IP, dll) |
 | `.tfvars.example` | Template variable — copy ke `.tfvars` |
