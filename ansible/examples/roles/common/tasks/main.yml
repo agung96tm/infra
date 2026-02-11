@@ -1,0 +1,22 @@
+- name: Update apt
+  apt:
+    update_cache: yes
+
+- name: Install basic packages
+  apt:
+    name:
+      - curl
+      - git
+      - ufw
+    state: present
+
+# - name: Enable ufw
+#   ufw:
+#     state: enabled
+#     default_rule: deny
+#     deny_incoming: yes
+#     deny_outgoing: yes
+#     deny_routed: yes
+#     allow_ssh: yes
+#     allow_http: yes
+#     allow_https: yes

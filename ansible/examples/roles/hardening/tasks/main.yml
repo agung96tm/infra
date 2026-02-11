@@ -1,0 +1,28 @@
+- name: Create deploy user
+  user:
+    name: deploy
+    groups: sudo
+    shell: /bin/bash
+    create_home: yes
+
+- name: Add SSH key to deploy user
+  authorized_key:
+    user: deploy
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: Disable password authentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+
+- name: Disable root login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+
+- name: Restart SSH
+  service:
+    name: ssh
+    state: restarted
