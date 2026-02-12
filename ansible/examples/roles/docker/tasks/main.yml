@@ -9,8 +9,8 @@
     groups: docker
     append: yes
 
-# - name: Start docker service
-#   service:
-#     name: docker
-#     state: started
-#     enabled: yes
+- name: Start and enable docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes

@@ -1,16 +1,29 @@
-# Terraform (terraform/examples/ dan subfolder lain)
-.terraform/
-*.tfstate
-*.tfstate.*
-*.tfvars
-!*.tfvars.example
-*.tfvars.json
-crash.log
-crash.*.log
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
+# Terraform
+terraform/**/.terraform/
+terraform/**/*.tfstate
+terraform/**/*.tfstate.*
+terraform/**/*.tfvars
+!terraform/**/*.tfvars.example
+terraform/**/*.tfvars.json
+terraform/**/crash.log
+terraform/**/crash.*.log
+terraform/**/override.tf
+terraform/**/override.tf.json
+terraform/**/*_override.tf
+terraform/**/*_override.tf.json
+
+# Ansible
+ansible/**/**/*.retry
+ansible/**/.vault_pass
+ansible/**/.vault_pass.txt
+ansible/**/vault_pass
+ansible/**/vault_pass.txt
+ansible/**/*.vault_pass
+ansible/**/inventory.local
+ansible/**/inventory/*.local
+ansible/**/ansible.log
+ansible/**/.ansible/
+ansible/**/collections/
 
 # IDE & OS
 .idea/

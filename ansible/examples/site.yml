@@ -1,7 +1,6 @@
-- hosts: prod
+- hosts: web
   become: true
   roles:
-    - deploy-user
     - common
     - docker
     - nginx
