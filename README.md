@@ -2,7 +2,6 @@
 
 Referensi belajar & pengembangan infrastructure.
 
-152.42.218.38
 ---
 
 ## Bagian di Repo
