@@ -24,6 +24,11 @@ ansible/**/inventory/*.local
 ansible/**/ansible.log
 ansible/**/.ansible/
 ansible/**/collections/
+ansible/**/.vault_pass
+
+# Apps
+apps/**/.env
+apps/**/node_modules/
 
 # IDE & OS
 .idea/

@@ -10,3 +10,4 @@ Referensi belajar & pengembangan infrastructure.
 |--------|-----|
 | [terraform/](terraform/README.md) | Dokumentasi & contoh Terraform |
 | [ansible/](ansible/README.md) | Dokumentasi & contoh Ansible |
+| [apps/](apps/README.md) | Aplikasi contoh untuk Ansible role app |
