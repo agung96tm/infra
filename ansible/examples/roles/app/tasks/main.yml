@@ -1,3 +1,7 @@
+- name: Create app network
+  docker_network:
+    name: app_network
+
 - name: Pull backend image
   docker_image:
     name: agung96tm/node-api-app
@@ -9,8 +13,10 @@
     image: agung96tm/node-api-app
     state: started
     restart_policy: always
+    networks:
+      - name: app_network
     ports:
-      - "3000:3000"
+      - "8000:3000"
     env:
       PORT: "3000"
       NODE_ENV: "production"
@@ -29,37 +35,7 @@
     image: agung96tm/node-react-app
     state: started
     restart_policy: always
+    networks:
+      - name: app_network
     ports:
-      - "80:80"
-    env:
-- name: Pull backend image
-  docker_image:
-    name: agung96tm/node-api-app
-    source: pull
-
-- name: Run backend container
-  docker_container:
-    name: node-api
-    image: agung96tm/node-api-app
-    state: started
-    restart_policy: always
-    ports:
-      - "3000:3000"
-    env:
-      PORT: "3000"
-      NODE_ENV: "production"
-      APP_NAME: "node-api-app"
-
-- name: Pull frontend image
-  docker_image:
-    name: agung96tm/node-react-app
-    source: pull
-
-- name: Run frontend container
-  docker_container:
-    name: node-react
-    image: agung96tm/node-react-app
-    state: started
-    restart_policy: always
-    ports:
-      - "80:80"
+      - "3000:80"

@@ -3,5 +3,5 @@
   roles:
     - common
     - docker
-    - nginx
     - app
+    - nginx
