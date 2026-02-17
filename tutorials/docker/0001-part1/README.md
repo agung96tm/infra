@@ -1,4 +1,4 @@
-# Tutorial Terraform — Part 1: Pengenalan & Install
+# Part 1: Pengenalan dan Install Terraform
 
 Part pertama: apa itu Terraform, analogi, cara install, dan cheatsheet dasar.
 
@@ -155,4 +155,4 @@ terraform plan
 
 ---
 
-**Selanjutnya:** Part 2 bisa isi struktur project (provider, variable, main, data) atau langsung praktek bikin resource pertama.
+**Selanjutnya:** [Part 2 — Setup Server dengan Terraform](../0002-part2/README.md)

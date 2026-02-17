@@ -10,7 +10,7 @@ Cocok buat yang mau belajar: bikin infra → deploy/run service (container/Docke
 
 | # | Tutorial | Isi |
 |---|----------|-----|
-| 1 | [Part 1 — Terraform](0001-part1/README.md) | Pengenalan Terraform, analogi, install (Ubuntu), cheatsheet |
-| 2 | [Part 2 — Setup Project](0002-part2/README.md) | Setup project DigitalOcean, penjelasan per file, jalankan & test di browser |
+| 1 | [Part 1 — Pengenalan dan Install Terraform](0001-part1/README.md) | Pengenalan Terraform, analogi, install (Ubuntu), cheatsheet |
+| 2 | [Part 2 — Setup Server dengan Terraform](0002-part2/README.md) | Setup server dengan Terraform, penjelasan per file, jalankan & test di browser |
 
 Baca berurutan dari Part 1 lalu Part 2.

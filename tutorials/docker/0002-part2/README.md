@@ -1,6 +1,6 @@
-# Tutorial Terraform — Part 2: Setup Project (DigitalOcean)
+# Part 2: Setup Server dengan Terraform
 
-Part kedua: setup project Terraform dari nol, penjelasan per file, dan cara menjalankannya. **Provider yang dipakai: DigitalOcean.**
+Part kedua: setup server dengan Terraform — penjelasan per file, dan cara menjalankannya. **Provider yang dipakai: DigitalOcean.**
 
 **Referensi contoh:** Untuk lihat file dan settingan lengkap, cek folder [projects/terraform](projects/terraform).
 
